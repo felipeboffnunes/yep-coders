@@ -14,11 +14,21 @@ NEWSPIDER_MODULE = "books_example.spiders"
 
 
 # REQUIRES SETTINGS FOR AUTOEXTRACT
-AUTOEXTRACT_USER = "XXXXXXXXXXXXXXXXXXXXXXXX"
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_autoextract.AutoExtractMiddleware': 543,
-}
+# AUTOEXTRACT_USER = "XXXXXXXXXXXXXXXXXXXXXXXX"
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy_autoextract.AutoExtractMiddleware': 543,
+# }
 
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_zyte_api.ScrapyZyteAPIDownloadHandler",
+    "https": "scrapy_zyte_api.ScrapyZyteAPIDownloadHandler",
+}
+DOWNLOADER_MIDDLEWARES = {
+    "scrapy_zyte_api.ScrapyZyteAPIDownloaderMiddleware": 1000,
+}
+REQUEST_FINGERPRINTER_CLASS = "scrapy_zyte_api.ScrapyZyteAPIRequestFingerprinter"
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+ZYTE_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "books_example (+http://www.yourdomain.com)"
